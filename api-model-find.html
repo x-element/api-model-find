@@ -8,6 +8,7 @@
       method="[[method]]"
       url="{{url}}"
       handleAs="[[handleAs]]"
+      params="{{params}}"
       last-response="{{models}}"
       last-error="{{error}}">
     </iron-ajax>
@@ -37,6 +38,10 @@
       handleAs: {
         type: String,
         value: 'json'
+      },
+      params: {
+        type: Object,
+        value: function () { return {}; }
       },
       access_token: {
         type: String
