@@ -7,9 +7,10 @@
       auto="{{auto}}"
       method="[[method]]"
       url="{{url}}"
-      handleAs="[[handleAs]]"
       params="{{params}}"
-      last-response="{{models}}"
+      headers="{{headers}}"
+      handleAs="[[handleAs]]"
+      last-response="{{response}}"
       last-error="{{error}}">
     </iron-ajax>
 
@@ -39,12 +40,12 @@
         type: String,
         value: 'json'
       },
+      accessToken: {
+        type: String
+      },
       params: {
         type: Object,
         value: function () { return {}; }
-      },
-      access_token: {
-        type: String
       },
       include: {
         type: Array,
@@ -66,12 +67,11 @@
         type: Number,
         value: 100
       },
-      debounce_duration: {
-        type: Number,
-        value: 0,
-        notify: true
+      headers: {
+        type: Object,
+        value: function () { return {}; }
       },
-      models: {
+      response: {
         type: Array,
         notify: true
       },
@@ -101,8 +101,8 @@
     },
 
     _compute_headers: function () {
-      if (this.access_token) {
-        this.headers.Authorization = this.access_token;
+      if (this.accessToken) {
+        this.headers.Authorization = this.accessToken;
       }
     },
 
