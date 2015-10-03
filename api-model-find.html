@@ -11,7 +11,9 @@
       headers="{{headers}}"
       handleAs="[[handleAs]]"
       last-response="{{response}}"
-      last-error="{{error}}">
+      last-error="{{error}}"
+      on-response="on_response"
+      on-error="on_error">
     </iron-ajax>
 
   </template>
@@ -115,6 +117,16 @@
       this._compute_headers();
       this._compute_params();
       this.$.ajax.generateRequest();
+    },
+    
+    on_response: function (event) {
+      event.stopPropagation();
+      this.fire('response', this.response);
+    },
+    
+    on_error: function (event) {
+      event.stopPropagation();
+      this.fire('error', this.error);
     }
 
   });
