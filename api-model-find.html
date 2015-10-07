@@ -103,14 +103,15 @@
     },
 
     _compute_url: function () {
-      var url;
+      var url = '/api/';
       if (this.collection) {
-        url = '/api/' + this.collection;
-        url = url.replace(/\/\/+/, '/');
-        if(this.relation != undefined && this.modelId != undefined)
-          url = url + '/' + this.modelId + '/' +this.relation;
-        this.url = url;
+        url += this.collection;
       }
+      if (this.modelId != undefined && this.relation != undefined) {
+        url += '/' + this.modelId + '/' + this.relation;
+      }
+      url = url.replace(/\/\/+/, '/');
+      this.url = url;
     },
 
     _compute_headers: function () {
