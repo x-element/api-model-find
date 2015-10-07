@@ -73,6 +73,9 @@
         type: Object,
         value: function () { return {}; }
       },
+      one: {
+        type: Boolean
+      },
       response: {
         type: Array,
         notify: true
@@ -121,6 +124,9 @@
     
     on_response: function (event) {
       event.stopPropagation();
+      if (this.one) {
+        this.set('response', this.response[0]);
+      }
       this.fire('response', this.response);
     },
     
