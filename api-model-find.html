@@ -49,6 +49,12 @@
         type: Object,
         value: function () { return {}; }
       },
+      relation: {
+        type: String
+      },
+      modelId: {
+        type: String
+      },
       include: {
         type: Array,
         value: function () { return []; }
@@ -86,7 +92,7 @@
       }
     },
 
-    get filter () {
+    get_filter: function () {
       return {
         where: this.where,
         order: this.order,
@@ -101,6 +107,8 @@
       if (this.collection) {
         url = '/api/' + this.collection;
         url = url.replace(/\/\/+/, '/');
+        if(this.relation != undefined && this.modelId != undefined)
+          url = url + '/' + this.modelId + '/' +this.relation;
         this.url = url;
       }
     },
@@ -112,7 +120,7 @@
     },
 
     _compute_params: function () {
-      this.params.filter = JSON.stringify(this.filter);
+      this.params.filter = JSON.stringify(this.get_filter());
     },
 
     send: function () {
@@ -121,7 +129,7 @@
       this._compute_params();
       this.$.ajax.generateRequest();
     },
-    
+
     on_response: function (event) {
       event.stopPropagation();
       if (this.one) {
@@ -129,7 +137,7 @@
       }
       this.fire('response', this.response);
     },
-    
+
     on_error: function (event) {
       event.stopPropagation();
       this.fire('error', this.error);
