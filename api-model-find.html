@@ -86,7 +86,7 @@
       }
     },
 
-    get filter () {
+    get_filter: function () {
       return {
         where: this.where,
         order: this.order,
@@ -112,7 +112,7 @@
     },
 
     _compute_params: function () {
-      this.params.filter = JSON.stringify(this.filter);
+      this.params.filter = JSON.stringify(this.get_filter());
     },
 
     send: function () {
